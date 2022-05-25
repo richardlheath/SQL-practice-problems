@@ -1,0 +1,12 @@
+--Find the genre of the oscar nominee with the most oscar wins, ranked in alphabetical order
+
+--POSTGRESQL 
+with top_winner AS
+(SELECT RANK() OVER(ORDER BY COUNT(*) DESC) AS standing, nominee, COUNT(*) AS num_oscars FROM oscar_nominees
+WHERE winner = TRUE
+GROUP BY nominee
+ORDER BY num_oscars DESC, nominee ASC 
+LIMIT 1)
+SELECT top_genre FROM nominee_information
+RIGHT JOIN top_winner ON
+nominee_information.name=top_winner.nominee;
