@@ -1,0 +1,6 @@
+SELECT pu.language, COUNT(*) as num_speakers, pe.location
+FROM playbook_users AS pu
+INNER JOIN playbook_events AS pe ON
+pu.user_id=pe.user_id 
+GROUP BY pe.location, pu.language
+ORDER BY location ASC;
